@@ -1,0 +1,25 @@
+.Title{
+  text-align: center;
+}
+
+.btn{
+  margin-left: 78%;
+}
+
+.space{
+  width: 4px;
+  height: auto;
+  display: inline-block;
+}
+
+.Table{
+  margin-left:auto; 
+  margin-right:auto;
+  margin-top: 2%;
+}
+
+table, td, th{
+  border: 2px solid black;
+
+}
+

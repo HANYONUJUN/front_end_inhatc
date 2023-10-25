@@ -1,0 +1,150 @@
+import React, {Component, useState} from 'react';
+import "./Form.css";
+import"./Modal.css";
+
+const App = () => {
+
+  const [tableData, setTableData] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [rowData, setRowData] =useState({
+    이수: '',
+    필수: '',
+    과목명: '',
+    학점: '',
+    출석점수: '',
+    과제점수: '',
+    중간고사: '',
+    기말고사: '',
+    총점: '',
+    평균: '',
+    성적: ''
+  });
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setRowData({
+      이수: '',
+      필수: '',
+      과목명: '',
+      학점: '',
+      출석점수: '',
+      과제점수: '',
+      중간고사: '',
+      기말고사: '',
+      총점: '',
+      평균: '',
+      성적: ''
+    });
+  };
+
+  const handleInputChange = (e) => {
+    const {name, value} = e.target;
+    setRowData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  }
+  
+  const handleSave = () => {
+    setTableData([...tableData, rowData]);
+    closeModal();
+  }
+
+
+  return (
+    <div className="App">
+     <div className='Title'>
+        <h2>front-end 과제</h2>
+     </div>
+      <>
+        <div className='btn'>
+            <button onClick={openModal}>추가</button>
+            <div className='space'></div>
+            <button>삭제</button>
+            <div className='space'></div>
+            <button>저장</button>
+        </div> 
+        <table className="Table" id='table'>
+          <thead>
+           <tr>
+            <th>이수</th>
+            <th>필수</th>
+            <th>과목명</th>
+            <th>학점</th>
+            <th>출석점수</th>
+            <th>과제점수</th>
+            <th>중간고사</th>
+            <th>기말고사</th>
+            <th>총점</th>
+            <th>평균</th>
+            <th>성적</th>
+           </tr>
+           </thead>
+        <tbody>
+          {tableData.map((row, index)=>(
+          <tr key={index}>
+          <td>{row.이수}</td>
+              <td>{row.필수}</td>
+              <td>{row.과목명}</td>
+              <td>{row.학점}</td>
+              <td>{row.출석점수}</td>
+              <td>{row.과제점수}</td>
+              <td>{row.중간고사}</td>
+              <td>{row.기말고사}</td>
+              <td>{row.총점}</td>
+              <td>{row.평균}</td>
+              <td>{row.성적}</td>
+           </tr>
+          ))}
+         </tbody>
+        </table>
+        {isModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>성적 입력</h2>
+              <div>
+                <input
+                  type="text"
+                  name="이수"
+                  value={rowData.이수}
+                  onChange={handleInputChange}
+                  placeholder="이수"
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="필수"
+                  value={rowData.필수}
+                  onChange={handleInputChange}
+                  placeholder="필수"
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="과목명"
+                  value={rowData.과목명}
+                  onChange={handleInputChange}
+                  placeholder="과목명"
+                />
+              </div>
+    
+              <div className="modal-buttons">
+                <button onClick={handleSave}>저장</button>
+                <button onClick={closeModal}>취소</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
+    </div>
+  );
+}
+
+export default App;
+
