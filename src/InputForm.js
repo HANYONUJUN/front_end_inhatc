@@ -1,6 +1,7 @@
 import React, {Component, useState} from 'react';
 import "./Form.css";
 import"./Modal.css";
+import { setSelectionRange } from '@testing-library/user-event/dist/utils';
 
 const App = () => {
 
@@ -19,6 +20,7 @@ const App = () => {
     평균: '',
     성적: ''
   });
+  const [selectedRow, setSelectedRow] = useState(null);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -54,6 +56,15 @@ const App = () => {
     closeModal();
   }
 
+  const handleRowClick = (index) => {
+    setSelectedRow(index);
+  }
+
+  const handleDelete = () => {
+    setTableData(prevData => prevData.filter((row, index) => index !== selectedRow));
+    setSelectedRow(null);
+  }
+
 
   return (
     <div className="App">
@@ -64,11 +75,12 @@ const App = () => {
         <div className='btn'>
             <button onClick={openModal}>추가</button>
             <div className='space'></div>
-            <button>삭제</button>
+            <button onClick={handleDelete} disabled={selectedRow === null}>삭제</button>
             <div className='space'></div>
             <button>저장</button>
         </div> 
-        <table className="Table" id='table'>
+
+        <table className="Table">
           <thead>
            <tr>
             <th>이수</th>
@@ -84,9 +96,15 @@ const App = () => {
             <th>성적</th>
            </tr>
            </thead>
+
         <tbody>
+      
           {tableData.map((row, index)=>(
-          <tr key={index}>
+          <tr 
+            key={index}
+            onClick={()=> handleRowClick(index)}
+            className={selectedRow === index ? 'selected' : ''}
+          >
           <td>{row.이수}</td>
               <td>{row.필수}</td>
               <td>{row.과목명}</td>
@@ -102,28 +120,37 @@ const App = () => {
           ))}
          </tbody>
         </table>
+
         {isModalOpen && (
           <div className="modal">
             <div className="modal-content">
-              <h2>성적 입력</h2>
+              <h2 className="input_title">성적 입력</h2>
+
+              <div className="input_list">
               <div>
-                <input
-                  type="text"
+                <select 
                   name="이수"
                   value={rowData.이수}
                   onChange={handleInputChange}
-                  placeholder="이수"
-                />
+                >
+                   <option value="">선택</option>
+                   <option value="교양">교양</option>
+                   <option value="전공">전공</option>
+                </select>
               </div>
+
               <div>
-                <input
-                  type="text"
-                  name="필수"
-                  value={rowData.필수}
-                  onChange={handleInputChange}
-                  placeholder="필수"
-                />
+                 <select 
+                    name="필수"
+                    value={rowData.필수}
+                    onChange={handleInputChange}
+                 >
+                  <option value="선택">선택</option>
+                  <option value="필수">필수</option>
+
+                 </select>
               </div>
+
               <div>
                 <input
                   type="text"
@@ -133,10 +160,12 @@ const App = () => {
                   placeholder="과목명"
                 />
               </div>
-    
+
               <div className="modal-buttons">
                 <button onClick={handleSave}>저장</button>
+                <div className='space'></div>
                 <button onClick={closeModal}>취소</button>
+               </div>
               </div>
             </div>
           </div>
