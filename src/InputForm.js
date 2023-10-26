@@ -110,9 +110,7 @@ const App = () => {
             <th>성적</th>
            </tr>
            </thead>
-
         <tbody>
-      
           {tableData.map((row, index)=>(
           <tr 
             key={index}
@@ -133,6 +131,18 @@ const App = () => {
            </tr>
           ))}
          </tbody>
+
+          <thead>
+             <th colSpan={3}>합계</th>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+          </thead>
         </table>
 
         {isModalOpen && (
