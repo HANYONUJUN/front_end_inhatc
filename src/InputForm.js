@@ -2,6 +2,8 @@ import React, {Component, useState} from 'react';
 import "./Form.css";
 import"./Modal.css";
 import { setSelectionRange } from '@testing-library/user-event/dist/utils';
+import { calcluateScore } from './Components/Calscore';
+
 
 const App = () => {
 
@@ -45,6 +47,11 @@ const App = () => {
 
   const handleInputChange = (e) => {
     const {name, value} = e.target;
+
+    if(['학점','출석점수','과제점수','중간고사','기말고사'].includes(name) && value < 0) {
+      return;
+    }
+
     setRowData(prevData => ({
       ...prevData,
       [name]: value
@@ -65,6 +72,13 @@ const App = () => {
     setSelectedRow(null);
   }
 
+  const handleScoreSave = () => {
+    const updateTableData = tableData.map(row =>{ 
+      const updateRow = calcluateScore(row);
+      return updateRow;
+    });
+    setTableData(updateTableData);
+  };
 
   return (
     <div className="App">
@@ -77,7 +91,7 @@ const App = () => {
             <div className='space'></div>
             <button onClick={handleDelete} disabled={selectedRow === null}>삭제</button>
             <div className='space'></div>
-            <button>저장</button>
+            <button onClick={handleScoreSave}>저장</button>
         </div> 
 
         <table className="Table">
@@ -105,7 +119,7 @@ const App = () => {
             onClick={()=> handleRowClick(index)}
             className={selectedRow === index ? 'selected' : ''}
           >
-          <td>{row.이수}</td>
+              <td>{row.이수}</td>
               <td>{row.필수}</td>
               <td>{row.과목명}</td>
               <td>{row.학점}</td>
@@ -127,7 +141,9 @@ const App = () => {
               <h2 className="input_title">성적 입력</h2>
 
               <div className="input_list">
-              <div>
+              
+              
+              <div id="option_value">
                 <select 
                   name="이수"
                   value={rowData.이수}
@@ -139,15 +155,15 @@ const App = () => {
                 </select>
               </div>
 
-              <div>
+              <div id="option_value">
                  <select 
                     name="필수"
                     value={rowData.필수}
                     onChange={handleInputChange}
                  >
+                   <option value=""></option>
                   <option value="선택">선택</option>
                   <option value="필수">필수</option>
-
                  </select>
               </div>
 
@@ -158,6 +174,56 @@ const App = () => {
                   value={rowData.과목명}
                   onChange={handleInputChange}
                   placeholder="과목명"
+                />
+              </div>
+
+              <div>
+                <input
+                  type="number"
+                  name="학점"
+                  value={rowData.학점}
+                  onChange={handleInputChange}
+                  placeholder="학점"
+                />
+              </div>
+
+              <div>
+                <input
+                  type="number"
+                  name="출석점수"
+                  value={rowData.출석점수}
+                  onChange={handleInputChange}
+                  placeholder="출석점수"
+                />
+              </div>
+
+              <div>
+                <input
+                  type="number"
+                  name="과제점수"
+                  value={rowData.과제점수}
+                  onChange={handleInputChange}
+                  placeholder="과제점수"
+                />
+              </div>
+
+              <div>
+                <input
+                  type="number"
+                  name="중간고사"
+                  value={rowData.중간고사}
+                  onChange={handleInputChange}
+                  placeholder="중간고사"
+                />
+              </div>
+
+              <div>
+                <input
+                  type="number"
+                  name="기말고사"
+                  value={rowData.기말고사}
+                  onChange={handleInputChange}
+                  placeholder="기말고사"
                 />
               </div>
 
