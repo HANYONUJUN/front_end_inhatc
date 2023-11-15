@@ -1,3 +1,5 @@
+import "../Form.css";
+
 const Table = ({ tableData, handleRowClick, selectedRow, calculateTotal }) => {
     return (
       <table className="Table">
@@ -33,7 +35,7 @@ const Table = ({ tableData, handleRowClick, selectedRow, calculateTotal }) => {
               <td>{row.기말고사}</td>
               <td>{row.총점}</td>
               <td>{row.평균}</td>
-              <td>{row.성적}</td>
+              <td className={row.성적 === 'F' ? 'grade-f' : ''}>{row.성적}</td>
             </tr>
           ))}
         </tbody>
@@ -46,7 +48,7 @@ const Table = ({ tableData, handleRowClick, selectedRow, calculateTotal }) => {
              <td>{calculateTotal().기말고사}</td>
              <td>{calculateTotal().총점}</td>
              <td>{calculateTotal().평균}</td>
-             <td>{calculateTotal().성적}</td>
+             <td className={calculateTotal().성적 === 'F' ? 'grade-f' : ''}>{calculateTotal().성적}</td>
         </thead>
       </table>
     );
