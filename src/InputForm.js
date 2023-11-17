@@ -55,7 +55,7 @@ const App = () => {
           openModal={openModal2}
           handleDelete={handleDelete2}
           handleScoreSave={handleScoreSave2}
-          selectedRow={setSelectedRow2}
+          selectedRow={selectedRow2}
         />
       <Table
           tableData={tableData2}
@@ -72,22 +72,22 @@ const App = () => {
       />
     )}
 
-<div className="grade_title">
-    <h2>3학년</h2>
-</div>
-  <ButtonGroup
-    openModal={openModal3}
-    handleDelete={handleDelete3}
-    handleScoreSave={handleScoreSave3}
-    selectedRow={selectedRow3}
-  />
-  <Table
+    <div className="grade_title">
+        <h2>3학년</h2>
+    </div>
+    <ButtonGroup
+        openModal={openModal3}
+        handleDelete={handleDelete3}
+        handleScoreSave={handleScoreSave3}
+        selectedRow={selectedRow3}
+    />
+    <Table
       tableData={tableData3}
       handleRowClick={handleRowClick3}
       selectedRow={selectedRow3}
       calculateTotal={calculateTotal3}
-  />
-  {isModalOpen3 && (
+    />
+    {isModalOpen3 && (
     <Modal
         rowData={rowData3}
         handleInputChange={handleInputChange3}

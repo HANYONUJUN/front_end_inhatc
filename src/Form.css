@@ -1,10 +1,24 @@
+body{
+  background-color: azure;
+}
+
+
 .Title{
   text-align: center;
 }
 
 .btn{
   margin-top: -5%;
-  margin-left: 60%;
+  margin-left: 90.9%;
+}
+
+#click_btn{
+  border: none;
+  border-radius: 5px;
+  padding: 4% 5.7%;
+  color :white;
+  background-color: black;
+
 }
 
 .space{
@@ -14,18 +28,19 @@
 }
 
 .Table{
-  margin-left:auto; 
-  margin-right:auto;
-  margin-top: 3%;
+  margin-top: 2.2%;
+  width: 100%;
 }
 
 table, td, th{
   border: 2px solid white;
   background-color: rgb(38, 228, 228);
+  text-align: center;
 }
 
 td{
   background-color: rgb(198, 255, 255);
+  height: 40px;
 }
 
 #option_value{
@@ -43,7 +58,6 @@ input{
 }
 
 .grade_title{
-  margin-top: 6%;
-  margin-left: 31%;
+  margin-top: 7%;
 }
 
